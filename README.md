@@ -1,1 +1,1 @@
-# Advent of code 2017: in C
+# Advent of code 2017: the C one
