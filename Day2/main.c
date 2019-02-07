@@ -27,6 +27,7 @@ int main(int argc, char **argv)
 
     /* Keep the differences (between the max and min element of each line). */
     int line_max, line_min, differences[n_lines], d_sum = 0;
+    int div_sum = 0;
 
     while (fgets(line_buffer, MAXLINE, fp) != NULL) {
         /* Tokenize string to integers delimited by whitespace. */
@@ -57,14 +58,32 @@ int main(int argc, char **argv)
                 line_min = int_buffer[i];
             }
         }
-        printf("[%d] max = %d, min = %d.\n", line_i, line_max, line_min);
+
         differences[line_i] = line_max - line_min;
         d_sum += differences[line_i];
 
+        /* Find evenly divisible numbers. */
+        int j;
+        for (i = 0; i < line_len; i++) {
+            for (j = 0; j < line_len; j++) {
+                if (i == j)
+                    continue;
+                if (int_buffer[i] % int_buffer[j] == 0) {
+                    div_sum += (int_buffer[i] / int_buffer[j]);
+                    break;
+                }
+            }
+        }
         /* Next line. */
         line_i++;
     }
 
+    /* Clean up. */
+    for (i = 0; i <= n_lines; i++)
+        free(lines[i]);
+    fclose(fp);
+
     printf("Sum of differences = %d.\n", d_sum);
+    printf("Sum of even divisors = %d.\n", div_sum);
     return 0;
 }
