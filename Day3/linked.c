@@ -35,7 +35,7 @@ LinkedPtr append(int x, int y, int value, const LinkedPtr root)
 LinkedPtr get(int x, int y, const LinkedPtr root)
 {
     LinkedPtr current = root;
-    while (current->x != x && current->y != y)
+    while (current != NULL && (current->x != x || current->y != y))
         current = current->next;
 
     return current;
